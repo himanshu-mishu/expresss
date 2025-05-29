@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 
-// Respond with an HTML file
+// Middleware to serve static files from /public
+app.use("/public", express.static(__dirname + "/public"));
+
+// Route to serve HTML file at '/'
 app.get("/", function (req, res) {
-  const absolutePath = __dirname + "/views/index.html";
-  res.sendFile(absolutePath);
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 module.exports = app;
