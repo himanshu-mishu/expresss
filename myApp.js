@@ -1,8 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 
 // Step 1: Load environment variables
-require("dotenv").config();
 
 // Step 2: Create the /json route
 app.get("/json", function (req, res) {
