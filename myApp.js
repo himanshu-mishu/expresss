@@ -1,28 +1,21 @@
 const express = require("express");
-const bodyParser = require("body-parser"); // ✅ Step 1: require body-parser
+const bodyParser = require("body-parser");
 
 const app = express();
 
-// ✅ Step 2: Mount the middleware BEFORE your routes
+// Mount body-parser middleware BEFORE routes
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Optional: simple GET route
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-// ✅ GET /name route (for query strings)
-app.get("/name", (req, res) => {
-  const first = req.query.first;
-  const last = req.query.last;
-  res.json({ name: `${first} ${last}` });
-});
-
-// ✅ POST /name route (for form data)
-app.post("/name", (req, res) => {
-  const first = req.body.first;
-  const last = req.body.last;
-  res.json({ name: `${first} ${last}` });
-});
+// Handle both GET and POST on the same /name path
+app
+  .route("/name")
+  .get((req, res) => {
+    const { first, last } = req.query;
+    res.json({ name: `${first} ${last}` });
+  })
+  .post((req, res) => {
+    const { first, last } = req.body;
+    res.json({ name: `${first} ${last}` });
+  });
 
 module.exports = app;
