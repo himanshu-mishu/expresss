@@ -1,8 +1,7 @@
-require("dotenv").config();
 const express = require("express");
 const app = express();
 
-// ✅ Load environment variables
+require("dotenv").config();
 
 app.get("/json", function (req, res) {
   let response = "Hello json";
@@ -11,4 +10,5 @@ app.get("/json", function (req, res) {
   }
   res.json({ message: response });
 });
+
 module.exports = app;
